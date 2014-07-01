@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.example.firstgame;
+package com.matimdev;
 
 public final class R {
     public static final class attr {
