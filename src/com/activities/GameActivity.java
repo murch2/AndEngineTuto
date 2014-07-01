@@ -10,9 +10,12 @@ import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
+import com.manager.ResourcesManager;
+
 public class GameActivity extends BaseGameActivity {
 
 	private Camera camera; 
+	private ResourcesManager resourcesManager;
 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -28,7 +31,9 @@ public class GameActivity extends BaseGameActivity {
 	public void onCreateResources(
 			OnCreateResourcesCallback pOnCreateResourcesCallback)
 			throws Exception {
-		// TODO Auto-generated method stub
+		 ResourcesManager.prepareManager(mEngine, this, camera, getVertexBufferObjectManager());
+		    resourcesManager = ResourcesManager.getInstance();
+		    pOnCreateResourcesCallback.onCreateResourcesFinished();
 		
 	}
 
