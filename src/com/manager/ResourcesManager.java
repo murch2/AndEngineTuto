@@ -26,6 +26,8 @@ public class ResourcesManager {
     public GameActivity activity;
     public Camera camera;
     public VertexBufferObjectManager vbom;
+    public ITextureRegion splash_region; 
+    private BitmapTextureAtlas splashTextureAtlas; 
     
     //---------------------------------------------
     // TEXTURES & TEXTURE REGIONS
@@ -73,14 +75,18 @@ public class ResourcesManager {
         
     }
     
-    public void loadSplashScreen()
-    {
-    
+    public void loadSplashScreen() {
+    	//Carregando a imagem de splashScreen; 
+    	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/"); 
+    	splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR); 
+    	splash_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "splash.png", 0, 0); 
+    	splashTextureAtlas.load(); 
+    	
     }
     
-    public void unloadSplashScreen()
-    {
-
+    public void unloadSplashScreen() {
+    	splashTextureAtlas.unload();
+    	splash_region = null;
     }
     
     /**
