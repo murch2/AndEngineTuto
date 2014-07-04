@@ -1,8 +1,10 @@
 package com.manager;
 
 import org.andengine.engine.Engine;
+import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.scenes.BaseScene;
+import com.scenes.SplashScene;
 
 
 public class SceneManager { 
@@ -66,6 +68,20 @@ public class SceneManager {
 			break;
 		}
 	}
+	
+	public void createSplashScene(OnCreateSceneCallback pOnCreateSceneCallback) {
+		ResourcesManager.getInstance().loadSplashScreen(); 
+		splashScene = new SplashScene(); 
+		currentScene = splashScene; 
+		pOnCreateSceneCallback.onCreateSceneFinished(splashScene); 
+	}
+	
+	private void disposeSplashScene() {
+	    ResourcesManager.getInstance().unloadSplashScreen();
+	    splashScene.disposeScene();
+	    splashScene = null;
+	}
+	
 
 	//---------------------------------------------
 	// GETTERS AND SETTERS
