@@ -4,6 +4,7 @@ import org.andengine.engine.Engine;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.scenes.BaseScene;
+import com.scenes.MainMenuScene;
 import com.scenes.SplashScene;
 
 
@@ -80,6 +81,13 @@ public class SceneManager {
 	    ResourcesManager.getInstance().unloadSplashScreen();
 	    splashScene.disposeScene();
 	    splashScene = null;
+	}
+	
+	public void createMenuScene() {
+	    ResourcesManager.getInstance().loadMenuResources();
+	    menuScene = new MainMenuScene();
+	    setScene(menuScene);
+	    disposeSplashScene();
 	}
 	
 
