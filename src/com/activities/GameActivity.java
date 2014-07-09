@@ -66,5 +66,11 @@ public class GameActivity extends BaseGameActivity {
 	{
 	    return new LimitedFPSEngine(pEngineOptions, 60);
 	}
+	
+	@Override 
+	protected void onDestroy() {
+		super.onDestroy(); 
+		System.exit(0); 
+	}
 
 }

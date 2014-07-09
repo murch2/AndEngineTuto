@@ -68,7 +68,6 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	    menuChildScene.buildAnimations();
 	    menuChildScene.setBackgroundEnabled(false);
 	    
-//	    TODO arrumar a posição
 	    playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() + 30);
 	    optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() + 50);
 	    
