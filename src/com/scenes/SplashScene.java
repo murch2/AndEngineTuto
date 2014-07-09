@@ -5,6 +5,7 @@ import org.andengine.opengl.util.GLState;
 import org.andengine.engine.camera.Camera;
 
 import com.manager.SceneManager.SceneType;
+import com.util.Constants;
 
 public class SplashScene extends BaseScene {	
 
@@ -22,9 +23,10 @@ public class SplashScene extends BaseScene {
                 pGLState.enableDither();
             }
     	};
+    
+    	splash.setPosition((Constants.CAMERA_WIDTH / 2) - splash.getWidth()/ 2,
+    			(Constants.CAMERA_HEIGHT / 2) - splash.getHeight() / 2);
     	
-    	splash.setScale(1.5f);
-    	splash.setPosition(400, 240);
     	attachChild(splash);
 	}
 

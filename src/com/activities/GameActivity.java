@@ -14,6 +14,7 @@ import org.andengine.ui.activity.BaseGameActivity;
 
 import com.manager.ResourcesManager;
 import com.manager.SceneManager;
+import com.util.Constants;
 
 public class GameActivity extends BaseGameActivity {
 
@@ -22,8 +23,7 @@ public class GameActivity extends BaseGameActivity {
 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
-//		800 x 480 é o que eu vou tomar como base ?
-		camera = new Camera(0, 0, 800, 480);
+		camera = new Camera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
 		EngineOptions engineOptions = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(800, 480), this.camera);
 		engineOptions.getAudioOptions().setNeedsMusic(true).setNeedsSound(true);
 		engineOptions.setWakeLockOptions(WakeLockOptions.SCREEN_ON);
