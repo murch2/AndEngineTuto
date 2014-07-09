@@ -2,6 +2,9 @@ package com.manager;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -11,6 +14,7 @@ import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtla
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.util.color.Color;
 import org.andengine.util.debug.Debug;
 
 import com.activities.GameActivity;
@@ -35,6 +39,8 @@ public class ResourcesManager {
         
     private BuildableBitmapTextureAtlas menuTextureAtlas;
     
+    public Font font; 
+    
     //---------------------------------------------
     // TEXTURES & TEXTURE REGIONS
     //---------------------------------------------
@@ -47,6 +53,7 @@ public class ResourcesManager {
     {
         loadMenuGraphics();
         loadMenuAudio();
+        loadMenuFonts(); 
     }
     
     public void loadGameResources()
@@ -106,6 +113,15 @@ public class ResourcesManager {
     public void unloadSplashScreen() {
     	splashTextureAtlas.unload();
     	splash_region = null;
+    }
+    
+    private void loadMenuFonts()
+    {
+        FontFactory.setAssetBasePath("font/");
+        final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        //Isso pode estar errado. 
+        font = FontFactory.createFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 50, true, 2); 
+        font.load();
     }
     
     /**
