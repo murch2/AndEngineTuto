@@ -12,6 +12,8 @@ import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
+import android.view.KeyEvent;
+
 import com.manager.ResourcesManager;
 import com.manager.SceneManager;
 import com.util.Constants;
@@ -71,6 +73,14 @@ public class GameActivity extends BaseGameActivity {
 	protected void onDestroy() {
 		super.onDestroy(); 
 		System.exit(0); 
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {  
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	        SceneManager.getInstance().getCurrentScene().onBackKeyPressed();
+	    }
+	    return false; 
 	}
 
 }
