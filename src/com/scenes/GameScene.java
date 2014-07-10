@@ -53,6 +53,7 @@ public class GameScene extends BaseScene {
 		createBackground(); 
 		createHUD(); 
 		createPhysics(); 
+		loadLevel(1); 
 	}
 
 	@Override
