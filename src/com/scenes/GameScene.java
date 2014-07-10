@@ -63,9 +63,9 @@ public class GameScene extends BaseScene {
 	private void createHUD() {
 		gameHUD = new HUD(); 
 //		precisa inicializar com tudo isso pq a memória já fica alocada. 		
-		scoreText = new Text(0, 0, resourcesManager.font, "Score: 0123456789",
+		scoreText = new Text(20, 420, resourcesManager.font, "Score: 0123456789",
 				new TextOptions(HorizontalAlign.LEFT), vbom);
-	    scoreText.setSkewCenter(0, 0);     
+	    scoreText.setAnchorCenter(0, 0);      
 	    scoreText.setText("Score: 0");
 	    gameHUD.attachChild(scoreText);
 		camera.setHUD(gameHUD); 

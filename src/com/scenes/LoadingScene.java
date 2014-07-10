@@ -14,7 +14,7 @@ public class LoadingScene extends BaseScene {
 		setBackground(new Background(Color.WHITE));
 		//Essa font devia ser privada e na vdd ela nem devia estar no resources manager a num ser que seja utilizada em outro lugar. 
 		Text text = new Text(0, 0, resourcesManager.font, "Loading...", vbom);
-		text.setPosition(Constants.CAMERA_WIDTH / 2 - text.getWidth() / 2, Constants.CAMERA_HEIGHT / 2 - text.getHeight() / 2); 
+		text.setPosition(Constants.CAMERA_WIDTH / 2, Constants.CAMERA_HEIGHT / 2); 
 		text.setColor(Color.BLACK); 
 		attachChild(text);
 	}
