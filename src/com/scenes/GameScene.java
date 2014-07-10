@@ -6,6 +6,8 @@ import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.ScaleModifier;
+import org.andengine.entity.scene.IOnSceneTouchListener;
+import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
@@ -14,6 +16,7 @@ import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.SAXUtils;
 import org.andengine.util.adt.align.HorizontalAlign;
 import org.andengine.util.adt.color.Color;
@@ -29,14 +32,16 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.manager.SceneManager;
 import com.manager.SceneManager.SceneType;
+import com.player.Player;
 import com.util.Constants;
 
-public class GameScene extends BaseScene {
+public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	
 	private HUD gameHUD; 
 	private Text scoreText; 
 	private int score = 0; 
 	private PhysicsWorld physicsWorld; 
+	private Player player; 
 	
 	private static final String TAG_ENTITY = "entity";
 	private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
@@ -47,13 +52,15 @@ public class GameScene extends BaseScene {
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM2 = "platform2";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM3 = "platform3";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_COIN = "coin";
-
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
+	
 	@Override
 	public void createScene() {
 		createBackground(); 
 		createHUD(); 
 		createPhysics(); 
 		loadLevel(1); 
+		setOnSceneTouchListener(this);
 	}
 
 	@Override
@@ -165,7 +172,17 @@ public class GameScene extends BaseScene {
 	                    }
 	                };
 	                levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
-	            }            
+	            }     
+	            else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER)){
+	            	player = new Player(x, y, vbom, camera, physicsWorld) {
+						
+						@Override
+						public void onDie() {
+							//TODO 
+						}
+					};
+					levelObject = player; 
+	            }
 	            else
 	            {
 	                throw new IllegalArgumentException();
@@ -179,6 +196,15 @@ public class GameScene extends BaseScene {
 
 	    levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + levelID + ".lvl");
 	}
+
+	@Override
+	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
+		if (pSceneTouchEvent.isActionDown()) {
+			
+		}
+		return false; 
+	}
+	
 	
 	
 
