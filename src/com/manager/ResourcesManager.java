@@ -36,8 +36,16 @@ public class ResourcesManager {
     public ITextureRegion menu_background_region;
     public ITextureRegion play_region;
     public ITextureRegion options_region;
-        
     private BuildableBitmapTextureAtlas menuTextureAtlas;
+    
+ // Game Texture
+    public BuildableBitmapTextureAtlas gameTextureAtlas;
+        
+    // Game Texture Regions
+    public ITextureRegion platform1_region;
+    public ITextureRegion platform2_region;
+    public ITextureRegion platform3_region;
+    public ITextureRegion coin_region;
     
     public Font font; 
     
@@ -85,9 +93,22 @@ public class ResourcesManager {
         
     }
 
-    private void loadGameGraphics()
-    {
+    private void loadGameGraphics() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/"); 
+//      Isso aqui eh o atlas. (muito bom). O tamanho tem que ser maior do que as imagens contidas nele obviamente. 
+        gameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR); 
+        platform1_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform1.png");
+        platform2_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform2.png");
+        platform3_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "platform3.png");
+        coin_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "coin.png");
         
+        try {
+            this.gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+            this.gameTextureAtlas.load();
+        } 
+        catch (final TextureAtlasBuilderException e) {
+            Debug.e(e);
+        }
     }
     
     private void loadGameFonts()
