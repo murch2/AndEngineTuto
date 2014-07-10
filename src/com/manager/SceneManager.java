@@ -4,6 +4,7 @@ import org.andengine.engine.Engine;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.scenes.BaseScene;
+import com.scenes.LoadingScene;
 import com.scenes.MainMenuScene;
 import com.scenes.SplashScene;
 
@@ -86,10 +87,10 @@ public class SceneManager {
 	public void createMenuScene() {
 	    ResourcesManager.getInstance().loadMenuResources();
 	    menuScene = new MainMenuScene();
+	    loadingScene = new LoadingScene();
 	    setScene(menuScene);
 	    disposeSplashScene();
 	}
-	
 
 	//---------------------------------------------
 	// GETTERS AND SETTERS
