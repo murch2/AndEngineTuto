@@ -6,9 +6,9 @@ import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
-import org.andengine.util.HorizontalAlign;
-import org.andengine.util.VerticalAlign;
-import org.andengine.util.color.Color;
+import org.andengine.util.adt.align.HorizontalAlign;
+import org.andengine.util.adt.color.Color;
+import org.andengine.util.level.simple.SimpleLevelLoader;
 
 import com.badlogic.gdx.math.Vector2;
 import com.manager.SceneManager;
@@ -21,6 +21,16 @@ public class GameScene extends BaseScene {
 	private Text scoreText; 
 	private int score = 0; 
 	private PhysicsWorld physicsWorld; 
+	
+	private static final String TAG_ENTITY = "entity";
+	private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
+	private static final String TAG_ENTITY_ATTRIBUTE_Y = "y";
+	private static final String TAG_ENTITY_ATTRIBUTE_TYPE = "type";
+	    
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM1 = "platform1";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM2 = "platform2";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM3 = "platform3";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_COIN = "coin";
 
 	@Override
 	public void createScene() {
@@ -69,6 +79,10 @@ public class GameScene extends BaseScene {
 	private void createPhysics() {
 		physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false); 
 		registerUpdateHandler(physicsWorld); 
+	}
+	
+	private void loadLevel(int levelID) {
+		final SimpleLevelLoader levelLoader = new SimpleLevelLoader(vbom); 
 	}
 	
 	

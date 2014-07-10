@@ -11,6 +11,7 @@ import org.andengine.engine.camera.Camera;
 
 import com.manager.SceneManager;
 import com.manager.SceneManager.SceneType;
+import com.util.Constants;
 
 public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener {
 	
@@ -42,7 +43,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	}
 	
 	private void createBackground() {
-	    attachChild(new Sprite(0, 0, resourcesManager.menu_background_region, vbom)
+	    attachChild(new Sprite(Constants.CAMERA_WIDTH / 2, Constants.CAMERA_HEIGHT / 2, resourcesManager.menu_background_region, vbom)
 	    {
 	        @Override
 	        protected void preDraw(GLState pGLState, Camera pCamera) 
@@ -69,8 +70,8 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	    menuChildScene.buildAnimations();
 	    menuChildScene.setBackgroundEnabled(false);
 	    
-	    playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() + 30);
-	    optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() + 50);
+	    playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() - 20);
+	    optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() - 40);
 	    
 	    //Poderia ter uma classe aqui que é responsavel por isso. (O click do botão de menu. 
 	    menuChildScene.setOnMenuItemClickListener(this); 
