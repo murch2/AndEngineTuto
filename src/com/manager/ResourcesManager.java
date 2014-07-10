@@ -131,6 +131,10 @@ public class ResourcesManager {
         menuTextureAtlas.load();
     }
     
+    public void unloadGameTextures() {
+    	//TODO
+    }
+    
     /**
      * @param engine
      * @param activity

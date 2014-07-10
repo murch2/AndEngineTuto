@@ -99,7 +99,7 @@ public class SceneManager {
 		setScene(loadingScene); 
 		ResourcesManager.getInstance().unloadMenuTextures(); 
 		//Esse 0.1 parece um jeito bem ruim. 
-		mEngine.registerUpdateHandler(new TimerHandler(10.0f, new ITimerCallback() {
+		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
@@ -109,6 +109,21 @@ public class SceneManager {
 				setScene(gameScene); 
 			}
 		})); 
+	}
+	
+	public void loadMenuScene(final Engine mEngine) {
+		setScene(loadingScene); 
+		gameScene.disposeScene(); 
+		ResourcesManager.getInstance().unloadGameTextures(); 
+		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+			
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				mEngine.unregisterUpdateHandler(pTimerHandler); 
+				ResourcesManager.getInstance().loadMenuTextures(); 
+				setScene(menuScene); 
+			}
+		}));
 	}
 
 	//---------------------------------------------

@@ -11,7 +11,9 @@ import org.andengine.util.VerticalAlign;
 import org.andengine.util.color.Color;
 
 import com.badlogic.gdx.math.Vector2;
+import com.manager.SceneManager;
 import com.manager.SceneManager.SceneType;
+import com.util.Constants;
 
 public class GameScene extends BaseScene {
 	
@@ -29,8 +31,7 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void onBackKeyPressed() {
-		// TODO Auto-generated method stub
-
+		SceneManager.getInstance().loadMenuScene(engine); 
 	}
 
 	@Override
@@ -41,8 +42,8 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-		// TODO Auto-generated method stub
-
+		camera.setHUD(null); 
+		camera.setCenter(Constants.CAMERA_WIDTH / 2 , Constants.CAMERA_HEIGHT / 2); 
 	}
 	
 	public void createBackground() {
@@ -69,5 +70,7 @@ public class GameScene extends BaseScene {
 		physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false); 
 		registerUpdateHandler(physicsWorld); 
 	}
+	
+	
 
 }
