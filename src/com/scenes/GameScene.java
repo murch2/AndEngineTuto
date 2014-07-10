@@ -7,6 +7,7 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.util.HorizontalAlign;
+import org.andengine.util.VerticalAlign;
 import org.andengine.util.color.Color;
 
 import com.badlogic.gdx.math.Vector2;
@@ -50,9 +51,8 @@ public class GameScene extends BaseScene {
 	
 	private void createHUD() {
 		gameHUD = new HUD(); 
-//		20 e 420 é a posição do scoreText que provavelmente estara errado. 
-//		precisa inicializar com tudo isso pq a memória já fica alocada. 
-		scoreText = new Text(20, 420, resourcesManager.font, "Score: 0123456789",
+//		precisa inicializar com tudo isso pq a memória já fica alocada. 		
+		scoreText = new Text(0, 0, resourcesManager.font, "Score: 0123456789",
 				new TextOptions(HorizontalAlign.LEFT), vbom);
 	    scoreText.setSkewCenter(0, 0);     
 	    scoreText.setText("Score: 0");

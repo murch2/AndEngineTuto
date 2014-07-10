@@ -9,6 +9,7 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
 import org.andengine.engine.camera.Camera;
 
+import com.manager.SceneManager;
 import com.manager.SceneManager.SceneType;
 
 public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener {
@@ -84,6 +85,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 		switch(pMenuItem.getID())
 	        {
 	        case MENU_PLAY:
+	        	SceneManager.getInstance().loadGameScene(engine);
 	            return true;
 	        case MENU_OPTIONS:
 	            return true;

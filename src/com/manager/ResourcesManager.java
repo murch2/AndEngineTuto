@@ -14,8 +14,8 @@ import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtla
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
-import org.andengine.util.color.Color;
 import org.andengine.util.debug.Debug;
+import android.graphics.Color;
 
 import com.activities.GameActivity;
 
@@ -106,8 +106,7 @@ public class ResourcesManager {
     	//tenho que ver o que eh exatamente esse 256. 
     	splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR); 
     	splash_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "splash.png", 0, 0); 
-    	splashTextureAtlas.load(); 
-    	
+    	splashTextureAtlas.load();
     }
     
     public void unloadSplashScreen() {
@@ -115,13 +114,21 @@ public class ResourcesManager {
     	splash_region = null;
     }
     
-    private void loadMenuFonts()
-    {
+    private void loadMenuFonts() {
         FontFactory.setAssetBasePath("font/");
         final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-        //Isso pode estar errado. 
-        font = FontFactory.createFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 50, true, 2); 
+        //Esse 50 é o tamanho
+        font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
         font.load();
+    }
+    
+    //Com o load e unload evita ficar recriando 
+    public void unloadMenuTextures() {
+        menuTextureAtlas.unload();
+    }
+        
+    public void loadMenuTextures() {
+        menuTextureAtlas.load();
     }
     
     /**
@@ -145,8 +152,7 @@ public class ResourcesManager {
     // GETTERS AND SETTERS
     //---------------------------------------------
     
-    public static ResourcesManager getInstance()
-    {
+    public static ResourcesManager getInstance() {
         return INSTANCE;
     }
 }

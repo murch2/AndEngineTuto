@@ -1,9 +1,12 @@
 package com.manager;
 
 import org.andengine.engine.Engine;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.scenes.BaseScene;
+import com.scenes.GameScene;
 import com.scenes.LoadingScene;
 import com.scenes.MainMenuScene;
 import com.scenes.SplashScene;
@@ -90,6 +93,22 @@ public class SceneManager {
 	    loadingScene = new LoadingScene();
 	    setScene(menuScene);
 	    disposeSplashScene();
+	}
+	
+	public void loadGameScene(final Engine mEngine) {
+		setScene(loadingScene); 
+		ResourcesManager.getInstance().unloadMenuTextures(); 
+		//Esse 0.1 parece um jeito bem ruim. 
+		mEngine.registerUpdateHandler(new TimerHandler(10.0f, new ITimerCallback() {
+			
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				mEngine.unregisterUpdateHandler(pTimerHandler); 
+				ResourcesManager.getInstance().loadGameResources(); 
+				gameScene = new GameScene();
+				setScene(gameScene); 
+			}
+		})); 
 	}
 
 	//---------------------------------------------
