@@ -29,7 +29,12 @@ import org.xml.sax.Attributes;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.manager.ResourcesManager;
 import com.manager.SceneManager;
 import com.manager.SceneManager.SceneType;
@@ -106,7 +111,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	}
 	
 	private void createPhysics() {
-		physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false); 
+		physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false);
+		physicsWorld.setContactListener(contactListener()); 
 		registerUpdateHandler(physicsWorld); 
 	}
 	
@@ -231,6 +237,45 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	}
 	
 	
-	
+	private ContactListener contactListener() {
+		ContactListener contactListener = new ContactListener() {
+			
+			@Override
+			public void preSolve(Contact contact, Manifold oldManifold) {
+				
+			}
+			
+			@Override
+			public void postSolve(Contact contact, ContactImpulse impulse) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void endContact(Contact contact) {
+				final Fixture x1 = contact.getFixtureA(); 
+				final Fixture x2 = contact.getFixtureB();
+				
+				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null) {
+					if (x2.getBody().getUserData().equals("player")) {
+						player.decreaseFootContacts(); 
+					}
+				}
+			}
+			
+			@Override
+			public void beginContact(Contact contact) {
+				final Fixture x1 = contact.getFixtureA(); 
+				final Fixture x2 = contact.getFixtureB();
+				
+				if (x1.getBody().getUserData() != null && x2.getBody().getUserData() != null) {
+					if (x2.getBody().getUserData().equals("player")) {
+						player.increaseFootContacts(); 
+					}
+				}
+			}
+		};
+		return contactListener; 
+	}
 
 }

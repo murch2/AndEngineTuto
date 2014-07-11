@@ -16,6 +16,7 @@ public abstract class Player extends AnimatedSprite {
 	
 	private Body body; 
 	private boolean canRun = false; 
+	private int footContacts = 0; 
 
 	public Player(float pX, float pY, VertexBufferObjectManager vbo, Camera camera, PhysicsWorld physicsWorld) {
 		super(pX, pY, ResourcesManager.getInstance().player_region, vbo);
@@ -59,6 +60,18 @@ public abstract class Player extends AnimatedSprite {
 	}
 	
 	public void jump() {
+		//Mutreta
+		if (footContacts < 1) {
+			return; 
+		}
 		body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 12)); 
+	}
+	
+	public void increaseFootContacts() {
+		footContacts++; 
+	}
+	
+	public void decreaseFootContacts() {
+		footContacts--; 
 	}
 }
