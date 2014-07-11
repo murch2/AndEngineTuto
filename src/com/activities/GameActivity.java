@@ -2,6 +2,7 @@ package com.activities;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.LimitedFPSEngine;
+import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -20,12 +21,12 @@ import com.util.Constants;
 
 public class GameActivity extends BaseGameActivity {
 
-	private Camera camera; 
+	private BoundCamera camera; 
 	private ResourcesManager resourcesManager;
 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
-		camera = new Camera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
+		camera = new BoundCamera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
 		EngineOptions engineOptions = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(800, 480), this.camera);
 		engineOptions.getAudioOptions().setNeedsMusic(true).setNeedsSound(true);
 		engineOptions.setWakeLockOptions(WakeLockOptions.SCREEN_ON);

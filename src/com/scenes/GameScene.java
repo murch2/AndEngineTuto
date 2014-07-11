@@ -117,11 +117,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	    {
 	        public IEntity onLoadEntity(final String pEntityName, final IEntity pParent, final Attributes pAttributes, final SimpleLevelEntityLoaderData pSimpleLevelEntityLoaderData) throws IOException 
 	        {
+	        	//Isso coloca limite na camera
 	            final int width = SAXUtils.getIntAttributeOrThrow(pAttributes, LevelConstants.TAG_LEVEL_ATTRIBUTE_WIDTH);
 	            final int height = SAXUtils.getIntAttributeOrThrow(pAttributes, LevelConstants.TAG_LEVEL_ATTRIBUTE_HEIGHT);
 	            
-	            // TODO later we will specify camera BOUNDS and create invisible walls
-	            // on the beginning and on the end of the level.
+	            camera.setBounds(0, 0, width, height);
+	            camera.setBoundsEnabled(true); 
 
 	            return GameScene.this;
 	        }
