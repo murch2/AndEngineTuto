@@ -166,6 +166,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	                    {
 	                        super.onManagedUpdate(pSecondsElapsed);
 	                        
+	                        if (player.collidesWith(this)) {
+	                        	addToScore(10); 
+	                        	this.setVisible(false); 
+	                        	this.setIgnoreUpdate(true); 
+	                        }
+	                        
 	                    }
 	                };
 	                levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
