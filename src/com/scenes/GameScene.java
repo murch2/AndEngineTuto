@@ -44,6 +44,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	private PhysicsWorld physicsWorld; 
 	private Player player; 
 	private boolean firstTouch = false; 
+	private Text gameOverText; 
+	private boolean gameOverDisplayed = false; 
 	
 	private static final String TAG_ENTITY = "entity";
 	private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
@@ -63,6 +65,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		createPhysics(); 
 		loadLevel(1); 
 		setOnSceneTouchListener(this);
+		createGameOverText(); 
 	}
 
 	@Override
@@ -181,7 +184,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 						
 						@Override
 						public void onDie() {
-							//TODO 
+							if (!gameOverDisplayed) {
+								displayGameOverText(); 
+							}
 						}
 					};
 					levelObject = player; 
@@ -212,6 +217,17 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 			}
 		}
 		return false; 
+	}
+	
+	public void createGameOverText() {
+		gameOverText = new Text(0, 0, resourcesManager.font, "Game Over!", vbom); 
+	}
+	
+	private void displayGameOverText() {
+		camera.setChaseEntity(null); 
+		gameOverText.setPosition(camera.getCenterX(), camera.getCenterY()); 
+		attachChild(gameOverText); 
+		gameOverDisplayed = true; 
 	}
 	
 	
