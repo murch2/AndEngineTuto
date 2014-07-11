@@ -39,10 +39,10 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	@Override
 	public void disposeScene() {
 		// TODO Auto-generated method stub
-
 	}
 	
 	private void createBackground() {
+		System.out.println("Imagino que não deve passar aqui");
 	    attachChild(new Sprite(Constants.CAMERA_WIDTH / 2, Constants.CAMERA_HEIGHT / 2, resourcesManager.menu_background_region, vbom)
 	    {
 	        @Override
@@ -94,6 +94,4 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	            return false;
 	    }
 	}
-
-
 }

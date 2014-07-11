@@ -30,6 +30,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.manager.ResourcesManager;
 import com.manager.SceneManager;
 import com.manager.SceneManager.SceneType;
 import com.player.Player;
@@ -77,7 +78,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	@Override
 	public void disposeScene() {
 		camera.setHUD(null); 
-		camera.setCenter(Constants.CAMERA_WIDTH / 2 , Constants.CAMERA_HEIGHT / 2); 
+		//Acho que só precisa disso por que a classe que deu new no player ainda está viva. 
+		camera.setChaseEntity(null); 
+		camera.setCenter(Constants.CAMERA_WIDTH / 2 , Constants.CAMERA_HEIGHT / 2);
 	}
 	
 	public void createBackground() {
@@ -163,12 +166,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	                    {
 	                        super.onManagedUpdate(pSecondsElapsed);
 	                        
-	                        /** 
-	                         * TODO
-	                         * we will later check if player collide with this (coin)
-	                         * and if it does, we will increase score and hide coin
-	                         * it will be completed in next articles (after creating player code)
-	                         */
 	                    }
 	                };
 	                levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));

@@ -20,6 +20,7 @@ public abstract class Player extends AnimatedSprite {
 	public Player(float pX, float pY, VertexBufferObjectManager vbo, Camera camera, PhysicsWorld physicsWorld) {
 		super(pX, pY, ResourcesManager.getInstance().player_region, vbo);
 		createPhysics(camera, physicsWorld); 
+//		System.out.println("CARALHO = " + camera.getc);
 		camera.setChaseEntity(this); 
 	}
 	
@@ -37,7 +38,6 @@ public abstract class Player extends AnimatedSprite {
 	        {
 	            super.onUpdate(pSecondsElapsed);
 	            camera.onUpdate(0.1f);
-	            
 	            if (getY() <= 0)
 	            {                    
 	                onDie();

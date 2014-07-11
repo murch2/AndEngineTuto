@@ -1,6 +1,7 @@
 package com.manager;
 
 import org.andengine.engine.Engine;
+import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
@@ -46,8 +47,8 @@ public class SceneManager {
 	// CLASS LOGIC
 	//---------------------------------------------
 
-	public void setScene(BaseScene scene)
-	{
+	public void setScene(BaseScene scene) {
+		//Pra cada scene saber o seu fluxo eu só preciso ter um gameManager com essa engine.
 		engine.setScene(scene);
 		currentScene = scene;
 		currentSceneType = scene.getSceneType();
@@ -102,7 +103,7 @@ public class SceneManager {
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override
-			public void onTimePassed(TimerHandler pTimerHandler) {
+			public void onTimePassed(TimerHandler pTimerHandler) { 
 				mEngine.unregisterUpdateHandler(pTimerHandler); 
 				ResourcesManager.getInstance().loadGameResources(); 
 				gameScene = new GameScene();
@@ -114,13 +115,13 @@ public class SceneManager {
 	public void loadMenuScene(final Engine mEngine) {
 		setScene(loadingScene); 
 		gameScene.disposeScene(); 
-		ResourcesManager.getInstance().unloadGameTextures(); 
+		ResourcesManager.getInstance().unloadGameTextures();		
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler); 
-				ResourcesManager.getInstance().loadMenuTextures(); 
+				ResourcesManager.getInstance().loadMenuTextures();
 				setScene(menuScene); 
 			}
 		}));
