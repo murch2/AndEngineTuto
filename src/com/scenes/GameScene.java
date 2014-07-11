@@ -43,6 +43,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	private int score = 0; 
 	private PhysicsWorld physicsWorld; 
 	private Player player; 
+	private boolean firstTouch = false; 
 	
 	private static final String TAG_ENTITY = "entity";
 	private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
@@ -71,14 +72,12 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 
 	@Override
 	public SceneType getSceneType() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void disposeScene() {
-		camera.setHUD(null); 
-		//Acho que só precisa disso por que a classe que deu new no player ainda está viva. 
+		camera.setHUD(null);
 		camera.setChaseEntity(null); 
 		camera.setCenter(Constants.CAMERA_WIDTH / 2 , Constants.CAMERA_HEIGHT / 2);
 	}
@@ -89,7 +88,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	
 	private void createHUD() {
 		gameHUD = new HUD(); 
-//		precisa inicializar com tudo isso pq a memória já fica alocada. 		
+//		precisa inicializar com tudo isso pq a memória já fica alocada. (Score: 0123456789")	
 		scoreText = new Text(20, 420, resourcesManager.font, "Score: 0123456789",
 				new TextOptions(HorizontalAlign.LEFT), vbom);
 	    scoreText.setAnchorCenter(0, 0);      
@@ -197,7 +196,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if (pSceneTouchEvent.isActionDown()) {
-			
+			if (!firstTouch) {
+				player.setRunning(); 
+				firstTouch = true; 
+			}
+			else {
+				player.jump(); 
+			}
 		}
 		return false; 
 	}
