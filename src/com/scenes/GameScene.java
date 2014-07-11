@@ -37,6 +37,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.logic.LevelCompleteWindow;
+import com.logic.LevelCompleteWindow.StarsCount;
 import com.manager.ResourcesManager;
 import com.manager.SceneManager;
 import com.manager.SceneManager.SceneType;
@@ -53,6 +55,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	private boolean firstTouch = false; 
 	private Text gameOverText; 
 	private boolean gameOverDisplayed = false; 
+	private LevelCompleteWindow levelCompleteWindow; 
 	
 	private static final String TAG_ENTITY = "entity";
 	private static final String TAG_ENTITY_ATTRIBUTE_X = "x";
@@ -64,6 +67,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLATFORM3 = "platform3";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_COIN = "coin";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_LEVEL_COMPLETE = "levelComplete";
 	
 	@Override
 	public void createScene() {
@@ -73,6 +77,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		loadLevel(1); 
 		setOnSceneTouchListener(this);
 		createGameOverText(); 
+		levelCompleteWindow = new LevelCompleteWindow(vbom); 
 	}
 
 	@Override
@@ -196,12 +201,29 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 								displayGameOverText(); 
 							}
 						}
-					};
-					levelObject = player; 
+	            	};
+	            	levelObject = player; 
 	            }
-	            else
-	            {
-	                throw new IllegalArgumentException();
+	            else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_LEVEL_COMPLETE)) {
+	            	levelObject = new Sprite(x, y, resourcesManager.complete_stars_region, vbom)
+	            	{
+	            		@Override
+	            		protected void onManagedUpdate(float pSecondsElapsed) 
+	            		{
+	            			super.onManagedUpdate(pSecondsElapsed);
+
+	            			if (player.collidesWith(this))
+	            			{
+	            				levelCompleteWindow.display(StarsCount.TWO, GameScene.this, camera);
+	            				this.setVisible(false);
+	            				this.setIgnoreUpdate(true);
+	            			}
+	            		}
+	            	};
+	            	levelObject.registerEntityModifier(new LoopEntityModifier(new ScaleModifier(1, 1, 1.3f)));
+	            }
+	            else {
+	            	throw new IllegalArgumentException();
 	            }
 
 	            levelObject.setCullingEnabled(true);

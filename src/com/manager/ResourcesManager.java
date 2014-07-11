@@ -50,7 +50,10 @@ public class ResourcesManager {
     public ITextureRegion coin_region;
     
     //Player - Uma sprite com 3 bonequinhos. 
-    public ITiledTextureRegion player_region; 
+    public ITiledTextureRegion player_region;
+    
+    public ITextureRegion complete_window_region; 
+    public ITiledTextureRegion complete_stars_region; 
     
     public Font font; 
     
@@ -108,6 +111,8 @@ public class ResourcesManager {
         coin_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "coin.png");
         //Esses dois ultimos parametros são legais. Colunas e linhas da animação. 
         player_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "player.png", 3, 1); 
+        complete_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "levelCompleteWindow.png"); 
+        complete_stars_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "star.png", 2, 1); 
         
         try {
             this.gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
